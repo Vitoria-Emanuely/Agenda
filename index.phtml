@@ -1,6 +1,6 @@
 <?php
     require 'controlador_agenda.php';
-    $meusContatos = getContact();
+    $meusContatos = buscar($_GET['buscar']);
 
 ?>
 
@@ -19,6 +19,8 @@
 
     <h3>MY SWEET CONTACT SCHEDULE :D</h3>
     <br />
+
+
 
     <!-- CADASTRO-->
     <div class="row">
@@ -43,13 +45,28 @@
                     <input name="telefone" type="text" class="form-control" id="telefone">
                 </div>
 
-                <button type="submit" class="btn btn-default">CADASTRAR</button>
+
+                <button type="submit" class="btn btn-default">CADASTRAR</button> <br><br>
+
 
             </form>
         </div>
     </div>
 
-    <br />
+    <!--Buscar-->
+    <div class="fa fa-search">
+        <form class="form-inline" method="get" action="">
+
+            <label for="buscar">Buscar</label>
+            <input name="buscar" type="text" class="form-control" id="buscar">
+
+            <button type="submit" class="btn btn-default">buscar</button>
+
+        </form>
+    </div>
+
+
+<br />
 
     <!--CONTATOS-->
     <div class="row">
@@ -63,18 +80,22 @@
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Telefone</th>
-                    <th>acoes</th>
+                    <th>Acoes</th>
                 </tr>
                 </thead>
                 <tbody>
                 <!-- repetir -->
                 <?php foreach ($meusContatos as $contato): ?>
                 <tr>
-                    <th scope="row"><?= $contato['id'] ?></th>
+                    <td><?= $contato['id'] ?></td>
                     <td><?= $contato['nome'] ?></td>
                     <td><?= $contato['email'] ?></td>
                     <td><?= $contato['telefone'] ?></td>
-                    <td>Editar | Excluir</td>
+                    <td>
+                        <a href="controlador_agenda.php?acao=excluir&id=<?= $contato['id'] ?>"> excluir </a> <!--Excluir-->
+                        <a href="editar.php?id=<?= $contato['id'] ?>">editar</a>
+                    </td>
+
                 </tr>
                 <?php endforeach; ?>
 
